@@ -35,8 +35,8 @@ model Exercise {
   description       String
   image             String?
   unit              String
-  exerciseCategory  ExerciseCategory @relation(fields: [execiseCategoryId], references: [id])
-  execiseCategoryId String
+  exerciseCategory  ExerciseCategory @relation(fields: [exerciseCategoryId], references: [id])
+  exerciseCategoryId String
   userExercises     UserExercise[]
 }
 
