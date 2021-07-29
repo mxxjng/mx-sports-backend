@@ -9,24 +9,21 @@ import {
 } from '@nestjs/common';
 import { CreateExerciseDto } from './dto';
 import { ExerciseService } from 'src/exercise/exercise.service';
+import { User } from 'src/user/user.decorator';
 
 @Controller('api/v1/exercise')
 export class ExerciseController {
   constructor(private readonly exerciseService: ExerciseService) {}
 
   @Get()
-  getAllExercises() {
+  getAllExercises(@User('id') userId: string) {
+    console.log(userId);
     return this.exerciseService.findAll();
   }
 
   @Get(':id')
   async getSingleExercise(@Param('id') id: string) {
-    const exercise = await this.exerciseService.findOne(id);
-
-    if (!exercise)
-      throw new NotFoundException(`Es existiert keine Übung mit der Id: ${id}`);
-
-    return exercise;
+    return await this.exerciseService.findOne(id);
   }
 
   @Post()

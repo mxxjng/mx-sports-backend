@@ -30,7 +30,7 @@ CREATE TABLE "Exercise" (
     "description" TEXT NOT NULL,
     "image" TEXT,
     "unit" TEXT NOT NULL,
-    "execiseCategoryId" TEXT NOT NULL,
+    "exerciseCategoryId" TEXT NOT NULL,
 
     PRIMARY KEY ("id")
 );
@@ -79,7 +79,7 @@ CREATE TABLE "UserExerciseDataSets" (
 CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "Exercise" ADD FOREIGN KEY ("execiseCategoryId") REFERENCES "ExerciseCategory"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Exercise" ADD FOREIGN KEY ("exerciseCategoryId") REFERENCES "ExerciseCategory"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserExercise" ADD FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
