@@ -15,6 +15,9 @@ import { AuthMiddleware } from './user/auth.middleware';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('/api/v1/exercise');
+    consumer
+      .apply(AuthMiddleware)
+      .exclude('/api/v1/user/register', '/api/v1/user/login')
+      .forRoutes('/api/v1');
   }
 }

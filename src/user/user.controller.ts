@@ -8,6 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { UserLoginDTO, UserRegistrationDTO } from './dto';
+import { User } from './user.decorator';
 import { UserService } from './user.service';
 
 @Controller('api/v1/user')
@@ -27,6 +28,11 @@ export class UserController {
       throw new NotFoundException(`Es existiert keine Übung mit der Id: ${id}`);
 
     return exercise;
+  }
+
+  @Get('/auth/user')
+  async getAuthenticatedUser(@User('id') userId: string) {
+    return await this.userService.getAuthenticatedUser(userId);
   }
 
   @Post('/login')

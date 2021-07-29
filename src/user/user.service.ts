@@ -24,6 +24,27 @@ export class UserService {
     });
   }
 
+  async getAuthenticatedUser(id: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        height: true,
+        weight: true,
+        createdAt: true,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('Kein Benutzer mit dieser Id gefunden.');
+    }
+
+    return user;
+  }
+
   async login(payLoad: UserLoginDTO): Promise<any> {
     const { email, password } = payLoad;
 
@@ -36,8 +57,6 @@ export class UserService {
     }
 
     const isAuthenticated = await bcrypt.compare(password, user.password);
-
-    console.log(isAuthenticated);
 
     if (!isAuthenticated) {
       throw new UnauthorizedException('Bitte geben sie gültige Daten an.');
