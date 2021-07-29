@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["selectRelationCount"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String    @id @default(cuid())
+  createdAt   DateTime  @default(now())
+  firstName   String
+  lastName    String
+  email       String    @unique
+  password    String
+  birthDate   DateTime
+  gender      String
+  height      Int
+  weight      Int
+  isVerified  Boolean  @default(false)
+  exercises   UserExercise[]
+}
+
+model ExerciseCategory {
+  id          String    @id @default(cuid())
+  name        String
+  exercises   Exercise[]
+}
+
+model Exercise {
+  id                String           @id @default(cuid())
+  name              String
+  description       String
+  image             String?
+  unit              String
+  exerciseCategory  ExerciseCategory @relation(fields: [execiseCategoryId], references: [id])
+  execiseCategoryId String
+  userExercises     UserExercise[]
+}
+
+model UserExercise {
+  id                String           @id @default(cuid())
+  user              User             @relation(fields: [userId], references: [id])
+  userId            String
+  exercise          Exercise         @relation(fields: [exerciseId], references: [id])
+  exerciseId        String
+  oneRepMax         OneRepMax[]
+  exerciseData      UserExerciseData[]
+  isPublic          Boolean          @default(false)
+}
+
+model OneRepMax {
+  id                String           @id @default(cuid())
+  date              DateTime
+  weight            Int
+  userExercise      UserExercise    @relation(fields: [userExerciseId], references: [id])
+  userExerciseId    String
+}
+
+model UserExerciseData {
+  id                   String           @id @default(cuid())
+  date                 DateTime
+  userExercise         UserExercise    @relation(fields: [userExerciseId], references: [id])
+  userExerciseId       String
+  userExerciseDataSets UserExerciseDataSets[]
+}
+
+model UserExerciseDataSets {
+  id                 String           @id @default(cuid())
+  reps               Int
+  weight             Int
+  setNumber          Int
+  userExerciseData   UserExerciseData @relation(fields: [userExerciseDataId], references: [id])
+  userExerciseDataId String
+}
