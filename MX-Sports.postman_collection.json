@@ -1,0 +1,406 @@
+{
+	"info": {
+		"_postman_id": "fbdf5133-cfdd-44f2-8051-59828cb9670d",
+		"name": "MX-Sports",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Exercises",
+			"item": [
+				{
+					"name": "Get all exercises",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNrcnA3cm8yNjAwMTllc3gwanZkYnNwcW4iLCJlbWFpbCI6Im1heEB3ZWIuZGUiLCJpYXQiOjE2Mjc1ODY1MjQsImV4cCI6MTYyODQ1MDUyNH0.TmiJ6sr8vzEzceN6ZfvELfEus1Y1eSoGRJcKhCV_0Kg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/exercise",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"exercise"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single exercise",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/exercise/ckrp6kib70009ccx022htkmlf",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"exercise",
+								"ckrp6kib70009ccx022htkmlf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Exercise",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Eine Übung\",\r\n    \"description\": \"Übungsbeschreibung\",\r\n    \"unit\": \"KG\",\r\n    \"exerciseCategoryId\": \"ckrp6k6vt0000rfnwk9ctzpx3\",\r\n    \"image\": \"...\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/exercise",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"exercise"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Exercise",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heEB3ZWIuZGUiLCJpZCI6ImNrcm5tcm9hcjAwMDJwc3gwYzloM2tsaTkiLCJpYXQiOjE2Mjc0ODYwMDMsImV4cCI6MTYyODM1MDAwM30.E9JH6Z-AQkFM3f3nu_xyyoP-mGdLPXzNzwtndpinpCw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/v1/exercise/ckrp268970003bcx0mt5dbpkw",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"exercise",
+								"ckrp268970003bcx0mt5dbpkw"
+							],
+							"query": [
+								{
+									"key": "x-auth-token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heEB3ZWIuZGUiLCJpZCI6ImNrcm5tcm9hcjAwMDJwc3gwYzloM2tsaTkiLCJpYXQiOjE2Mjc0ODYwMDMsImV4cCI6MTYyODM1MDAwM30.E9JH6Z-AQkFM3f3nu_xyyoP-mGdLPXzNzwtndpinpCw",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"max@web.de\",\r\n    \"password\": \"123\",\r\n    \"firstName\": \"Maxxx\",\r\n    \"lastName\": \"Jung\",\r\n    \"height\": 180,\r\n    \"weight\": 60,\r\n    \"gender\": \"MALE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"max@web.de\",\r\n    \"password\": \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get authenticated user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNrcnA3cm8yNjAwMTllc3gwanZkYnNwcW4iLCJlbWFpbCI6Im1heEB3ZWIuZGUiLCJpYXQiOjE2Mjc1ODY1MjQsImV4cCI6MTYyODQ1MDUyNH0.TmiJ6sr8vzEzceN6ZfvELfEus1Y1eSoGRJcKhCV_0Kg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heEB3ZWIuZGUiLCJpZCI6ImNrcm5tcm9hcjAwMDJwc3gwYzloM2tsaTkiLCJpYXQiOjE2Mjc0ODYwMDMsImV4cCI6MTYyODM1MDAwM30.E9JH6Z-AQkFM3f3nu_xyyoP-mGdLPXzNzwtndpinpCw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/v1/user/auth/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"auth",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Exercise",
+			"item": [
+				{
+					"name": "Create User Exercise",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNrcnA3cm8yNjAwMTllc3gwanZkYnNwcW4iLCJlbWFpbCI6Im1heEB3ZWIuZGUiLCJpYXQiOjE2Mjc1ODY1MjQsImV4cCI6MTYyODQ1MDUyNH0.TmiJ6sr8vzEzceN6ZfvELfEus1Y1eSoGRJcKhCV_0Kg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/userexercise/ckrpe2vio0000twnwqryrhymm",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"userexercise",
+								"ckrpe2vio0000twnwqryrhymm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Exercises from user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNrcnA3cm8yNjAwMTllc3gwanZkYnNwcW4iLCJlbWFpbCI6Im1heEB3ZWIuZGUiLCJpYXQiOjE2Mjc1ODY1MjQsImV4cCI6MTYyODQ1MDUyNH0.TmiJ6sr8vzEzceN6ZfvELfEus1Y1eSoGRJcKhCV_0Kg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/userexercise/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"userexercise",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User Exercise",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNrcnA3cm8yNjAwMTllc3gwanZkYnNwcW4iLCJlbWFpbCI6Im1heEB3ZWIuZGUiLCJpYXQiOjE2Mjc1ODY1MjQsImV4cCI6MTYyODQ1MDUyNH0.TmiJ6sr8vzEzceN6ZfvELfEus1Y1eSoGRJcKhCV_0Kg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/userexercise/ckrpe3f9x0000ednwxdlbvjzr",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"userexercise",
+								"ckrpe3f9x0000ednwxdlbvjzr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add One Rep Max",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNrcnA3cm8yNjAwMTllc3gwanZkYnNwcW4iLCJlbWFpbCI6Im1heEB3ZWIuZGUiLCJpYXQiOjE2Mjc1ODY1MjQsImV4cCI6MTYyODQ1MDUyNH0.TmiJ6sr8vzEzceN6ZfvELfEus1Y1eSoGRJcKhCV_0Kg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2020-07-29\",\r\n    \"weight\": 20.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/v1/userexercise/onerepmax/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"userexercise",
+								"onerepmax",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:5000"
+		}
+	]
+}

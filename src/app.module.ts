@@ -7,11 +7,24 @@ import { ExerciseController } from 'src/exercise/exercise.controller';
 import { UserService } from './user/user.service';
 import { UserController } from './user/user.controller';
 import { AuthMiddleware } from './user/auth.middleware';
+import { UserExerciseService } from './userExercise/userExercise.service';
+import { UserExerciseController } from './userExercise/userExercise.controller';
 
 @Module({
   imports: [],
-  controllers: [AppController, ExerciseController, UserController],
-  providers: [AppService, ExerciseService, PrismaService, UserService],
+  controllers: [
+    AppController,
+    ExerciseController,
+    UserController,
+    UserExerciseController,
+  ],
+  providers: [
+    AppService,
+    ExerciseService,
+    PrismaService,
+    UserService,
+    UserExerciseService,
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
