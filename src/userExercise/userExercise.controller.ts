@@ -23,6 +23,17 @@ export class UserExerciseController {
     );
   }
 
+  @Get(':exerciseId')
+  async getSingleUserExercise(
+    @User('id') userId: string,
+    @Param('exerciseId') exerciseId: string,
+  ) {
+    return await this.userExerciseService.getSingleUserExercise(
+      userId,
+      exerciseId,
+    );
+  }
+
   @Post(':exerciseId')
   async createUserExercise(
     @User('id') userId: string,

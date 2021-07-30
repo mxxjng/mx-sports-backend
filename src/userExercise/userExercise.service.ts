@@ -38,6 +38,50 @@ export class UserExerciseService {
     };
   }
 
+  async getSingleUserExercise(userId: string, userExerciseId: string) {
+    const userExercise = await this.prisma.userExercise.findUnique({
+      where: { id: userExerciseId },
+      select: {
+        id: true,
+        oneRepMax: true,
+        userId: true,
+        exerciseData: {
+          select: {
+            date: true,
+            id: true,
+            userExerciseDataSets: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+          },
+        },
+        exercise: {
+          select: {
+            name: true,
+            description: true,
+            unit: true,
+            image: true,
+            exerciseCategory: true,
+          },
+        },
+      },
+    });
+
+    if (!userExercise) {
+      throw new NotFoundException('No exercise found');
+    }
+
+    if (userExercise.userId !== userId) {
+      throw new ForbiddenException('Not allowed to see this exercise');
+    }
+
+    return userExercise;
+  }
+
   async deleteUserExercise(userId: string, userExerciseId: string) {
     const userExercise = await this.prisma.userExercise.findUnique({
       where: { id: userExerciseId },
@@ -67,7 +111,13 @@ export class UserExerciseService {
       select: {
         id: true,
         oneRepMax: true,
-        exerciseData: true,
+        exerciseData: {
+          select: {
+            date: true,
+            id: true,
+            userExerciseDataSets: true,
+          },
+        },
         user: {
           select: {
             id: true,

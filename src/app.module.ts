@@ -9,6 +9,8 @@ import { UserController } from './user/user.controller';
 import { AuthMiddleware } from './user/auth.middleware';
 import { UserExerciseService } from './userExercise/userExercise.service';
 import { UserExerciseController } from './userExercise/userExercise.controller';
+import { ExerciseDataController } from './exerciseData/exerciseData.controller';
+import { ExerciseDataService } from './exerciseData/exerciseData.service';
 
 @Module({
   imports: [],
@@ -17,6 +19,7 @@ import { UserExerciseController } from './userExercise/userExercise.controller';
     ExerciseController,
     UserController,
     UserExerciseController,
+    ExerciseDataController,
   ],
   providers: [
     AppService,
@@ -24,6 +27,7 @@ import { UserExerciseController } from './userExercise/userExercise.controller';
     PrismaService,
     UserService,
     UserExerciseService,
+    ExerciseDataService,
   ],
 })
 export class AppModule implements NestModule {
