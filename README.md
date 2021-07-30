@@ -8,6 +8,24 @@
 $ npm install
 ```
 
+copy env.example to .env and customize
+
+## Setting up the Database
+
+```bash
+$ docker-compose up
+```
+
+## Migrating the Database
+
+```bash
+# run migration
+$ npm run prisma:migrate
+
+# generate prisma client
+$ npx prisma generate
+```
+
 ## Running the app
 
 ```bash
