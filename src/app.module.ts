@@ -13,28 +13,28 @@ import { ExerciseDataController } from './exerciseData/exerciseData.controller';
 import { ExerciseDataService } from './exerciseData/exerciseData.service';
 
 @Module({
-  imports: [],
-  controllers: [
-    AppController,
-    ExerciseController,
-    UserController,
-    UserExerciseController,
-    ExerciseDataController,
-  ],
-  providers: [
-    AppService,
-    ExerciseService,
-    PrismaService,
-    UserService,
-    UserExerciseService,
-    ExerciseDataService,
-  ],
+    imports: [],
+    controllers: [
+        AppController,
+        ExerciseController,
+        UserController,
+        UserExerciseController,
+        ExerciseDataController,
+    ],
+    providers: [
+        AppService,
+        ExerciseService,
+        PrismaService,
+        UserService,
+        UserExerciseService,
+        ExerciseDataService,
+    ],
 })
 export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .exclude('/api/v1/user/register', '/api/v1/user/login')
-      .forRoutes('/api/v1');
-  }
+    configure(consumer: MiddlewareConsumer) {
+        consumer
+            .apply(AuthMiddleware)
+            .exclude('/api/v1/user/register', '/api/v1/user/login')
+            .forRoutes('/api/v1');
+    }
 }
