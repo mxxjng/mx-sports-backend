@@ -43,7 +43,7 @@ export class UserController {
     }
 
     @Post('/register')
-    async registerUser(@Body() payLoad: UserRegistrationDTO) {
+    async registerUser(@Body() payLoad) {
         return await this.userService.register(payLoad);
     }
 }

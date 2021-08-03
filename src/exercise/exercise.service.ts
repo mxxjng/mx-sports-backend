@@ -7,6 +7,10 @@ import { CreateExerciseDto } from './dto';
 export class ExerciseService {
     constructor(private prisma: PrismaService) {}
 
+    async findAllCategories() {
+        return await this.prisma.exerciseCategory.findMany();
+    }
+
     async findAll() {
         return await this.prisma.exercise.findMany({
             include: {

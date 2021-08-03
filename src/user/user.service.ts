@@ -72,14 +72,25 @@ export class UserService {
             { expiresIn: '10d' },
         );
 
-        return { message: 'Erfolgreich angemeldet', token };
+        return {
+            message: 'Erfolgreich angemeldet',
+            token,
+            user: {
+                id: user.id,
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+            },
+        };
     }
 
-    async register(payLoad: UserRegistrationDTO): Promise<any> {
+    async register(payLoad: any): Promise<any> {
         const { email, password, firstName, lastName, height, weight, gender } =
             payLoad;
 
-        const user = await this.prisma.user.findUnique({ where: { email } });
+        const user = await this.prisma.user.findUnique({
+            where: { email: payLoad.email },
+        });
 
         if (user) {
             throw new HttpException(

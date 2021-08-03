@@ -21,6 +21,12 @@ export class ExerciseController {
         return this.exerciseService.findAll();
     }
 
+    @Get('/category')
+    getAllCategories(@User('id') userId: string) {
+        console.log(userId);
+        return this.exerciseService.findAllCategories();
+    }
+
     @Get(':id')
     async getSingleExercise(@Param('id') id: string) {
         return await this.exerciseService.findOne(id);
