@@ -12,10 +12,7 @@ export class AuthMiddleware implements NestMiddleware {
         const authHeaders = req.headers.authorization;
         if (authHeaders && (authHeaders as string).split(' ')[1]) {
             const token = (authHeaders as string).split(' ')[1];
-            const decoded: any = jwt.verify(
-                token,
-                'createSecretTokenInEnvLaterPlease',
-            );
+            const decoded: any = jwt.verify(token, process.env.SECRET_TOKEN);
 
             if (!token) {
                 throw new HttpException('no token.', HttpStatus.UNAUTHORIZED);

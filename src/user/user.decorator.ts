@@ -13,10 +13,7 @@ export const User = createParamDecorator((data: any, ctx: ExecutionContext) => {
         ? (req.headers.authorization as string).split(' ')
         : null;
     if (token && token[1]) {
-        const decoded: any = jwt.verify(
-            token[1],
-            'createSecretTokenInEnvLaterPlease',
-        );
+        const decoded: any = jwt.verify(token[1], process.env.SECRET_TOKEN);
         return !!data ? decoded[data] : decoded.user;
     }
 });
