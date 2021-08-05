@@ -45,13 +45,25 @@ export class UserExerciseService {
             where: { id: userExerciseId },
             select: {
                 id: true,
-                oneRepMax: true,
+                oneRepMax: {
+                    select: {
+                        id: true,
+                        date: true,
+                        weight: true,
+                    },
+                    orderBy: {
+                        date: 'asc',
+                    },
+                },
                 userId: true,
                 exerciseData: {
                     select: {
                         date: true,
                         id: true,
                         userExerciseDataSets: true,
+                    },
+                    orderBy: {
+                        date: 'desc',
                     },
                 },
                 user: {
