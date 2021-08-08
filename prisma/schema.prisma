@@ -19,8 +19,14 @@ model User {
   gender      String
   height      Int
   weight      Int
+  role        Role   @default(USER)
   isVerified  Boolean  @default(false)
   exercises   UserExercise[]
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model ExerciseCategory {

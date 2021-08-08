@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+    Injectable,
+    NotFoundException,
+    ForbiddenException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { Exercise, Prisma } from '@prisma/client';
 import { CreateExerciseDto } from './dto';
@@ -40,9 +44,18 @@ export class ExerciseService {
 
     async create(
         exerciseData: CreateExerciseDto,
+        user,
     ): Promise<Exercise | undefined> {
+        console.log(user);
+
         const { name, description, unit, image, exerciseCategoryId } =
             exerciseData;
+
+        if (user.role !== 'ADMIN') {
+            throw new ForbiddenException(
+                'You dont have the rights to do this.',
+            );
+        }
         return await this.prisma.exercise.create({
             data: {
                 name,

@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -10,6 +13,7 @@ CREATE TABLE "User" (
     "gender" TEXT NOT NULL,
     "height" INTEGER NOT NULL,
     "weight" INTEGER NOT NULL,
+    "role" "Role" NOT NULL DEFAULT E'USER',
     "isVerified" BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY ("id")

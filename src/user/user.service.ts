@@ -67,7 +67,7 @@ export class UserService {
         }
 
         const token = await jwt.sign(
-            { id: user.id, email: user.email },
+            { id: user.id, email: user.email, role: user.role },
             process.env.SECRET_TOKEN,
             { expiresIn: '10d' },
         );
@@ -116,7 +116,7 @@ export class UserService {
         });
 
         const token = await jwt.sign(
-            { id: createUser.id, email },
+            { id: createUser.id, email, role: createUser.role },
             process.env.SECRET_TOKEN,
             { expiresIn: '10d' },
         );

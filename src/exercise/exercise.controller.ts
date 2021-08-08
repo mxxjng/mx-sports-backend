@@ -33,8 +33,11 @@ export class ExerciseController {
     }
 
     @Post()
-    async createExercise(@Body() exerciseData: CreateExerciseDto) {
-        return this.exerciseService.create(exerciseData);
+    async createExercise(
+        @User() user,
+        @Body() exerciseData: CreateExerciseDto,
+    ) {
+        return this.exerciseService.create(exerciseData, user);
     }
 
     @Delete(':id')
