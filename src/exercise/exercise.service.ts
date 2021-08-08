@@ -42,6 +42,19 @@ export class ExerciseService {
         return await this.prisma.exercise.delete({ where: { id: id } });
     }
 
+    async createCategory(name, user) {
+        if (user.role !== 'ADMIN') {
+            throw new ForbiddenException(
+                'You dont have the rights to do this.',
+            );
+        }
+        return await this.prisma.exerciseCategory.create({
+            data: {
+                name,
+            },
+        });
+    }
+
     async create(
         exerciseData: CreateExerciseDto,
         user,

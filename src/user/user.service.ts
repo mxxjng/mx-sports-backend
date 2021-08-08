@@ -35,6 +35,7 @@ export class UserService {
                 height: true,
                 weight: true,
                 createdAt: true,
+                role: true,
             },
         });
 

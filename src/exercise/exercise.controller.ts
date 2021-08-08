@@ -40,6 +40,11 @@ export class ExerciseController {
         return this.exerciseService.create(exerciseData, user);
     }
 
+    @Post('/category')
+    async createExerciseCategory(@User() user, @Body('name') name) {
+        return this.exerciseService.createCategory(name, user);
+    }
+
     @Delete(':id')
     async deleteExercise(@Param('id') id: string) {
         const exercise = await this.exerciseService.findOne(id);
