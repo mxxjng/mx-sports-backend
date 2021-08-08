@@ -38,8 +38,42 @@ export class ExerciseService {
         return exercise;
     }
 
-    async deleteOne(id: string): Promise<Exercise | undefined> {
+    async deleteOne(id: string, user): Promise<Exercise | undefined> {
+        if (user.role !== 'ADMIN') {
+            throw new ForbiddenException(
+                'You dont have the rights to do this.',
+            );
+        }
+
+        const exercise = await this.prisma.exercise.findUnique({
+            where: { id },
+        });
+
+        if (!exercise) {
+            throw new NotFoundException(
+                `Es existiert keine Übung mit der Id: ${id}`,
+            );
+        }
+
         return await this.prisma.exercise.delete({ where: { id: id } });
+    }
+
+    async deleteExerciseCategory(id, user) {
+        if (user.role !== 'ADMIN') {
+            throw new ForbiddenException(
+                'You dont have the rights to do this.',
+            );
+        }
+
+        const exerciseCategory = await this.prisma.exerciseCategory.findUnique({
+            where: { id },
+        });
+
+        if (!exerciseCategory) {
+            throw new NotFoundException('No exercise category found');
+        }
+
+        return await this.prisma.exerciseCategory.delete({ where: { id } });
     }
 
     async createCategory(name, user) {
@@ -48,6 +82,7 @@ export class ExerciseService {
                 'You dont have the rights to do this.',
             );
         }
+
         return await this.prisma.exerciseCategory.create({
             data: {
                 name,
@@ -59,8 +94,6 @@ export class ExerciseService {
         exerciseData: CreateExerciseDto,
         user,
     ): Promise<Exercise | undefined> {
-        console.log(user);
-
         const { name, description, unit, image, exerciseCategoryId } =
             exerciseData;
 
@@ -69,6 +102,7 @@ export class ExerciseService {
                 'You dont have the rights to do this.',
             );
         }
+
         return await this.prisma.exercise.create({
             data: {
                 name,

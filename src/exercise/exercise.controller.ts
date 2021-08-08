@@ -45,18 +45,13 @@ export class ExerciseController {
         return this.exerciseService.createCategory(name, user);
     }
 
+    @Delete('/category/:id')
+    async deleteExerciseCategory(@Param('id') id: string, @User() user) {
+        return await this.exerciseService.deleteExerciseCategory(id, user);
+    }
+
     @Delete(':id')
-    async deleteExercise(@Param('id') id: string) {
-        const exercise = await this.exerciseService.findOne(id);
-
-        if (!exercise) {
-            throw new NotFoundException(
-                `Es existiert keine Übung mit der Id: ${id}`,
-            );
-        }
-
-        const del = await this.exerciseService.deleteOne(id);
-
-        return del;
+    async deleteExercise(@Param('id') id: string, @User() user) {
+        return await this.exerciseService.deleteOne(id, user);
     }
 }
