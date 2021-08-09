@@ -83,13 +83,13 @@ CREATE TABLE "UserExerciseDataSets" (
 CREATE UNIQUE INDEX "User.email_unique" ON "User"("email");
 
 -- AddForeignKey
-ALTER TABLE "Exercise" ADD FOREIGN KEY ("exerciseCategoryId") REFERENCES "ExerciseCategory"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Exercise" ADD FOREIGN KEY ("exerciseCategoryId") REFERENCES "ExerciseCategory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "UserExercise" ADD FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "UserExercise" ADD FOREIGN KEY ("exerciseId") REFERENCES "Exercise"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "UserExercise" ADD FOREIGN KEY ("exerciseId") REFERENCES "Exercise"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "OneRepMax" ADD FOREIGN KEY ("userExerciseId") REFERENCES "UserExercise"("id") ON DELETE CASCADE ON UPDATE CASCADE;

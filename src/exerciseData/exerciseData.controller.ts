@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Param, Body, Delete } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Param,
+    Body,
+    Delete,
+    Patch,
+} from '@nestjs/common';
 import { CreateOneRepMaxDTO, CreateUserExerciseDto } from './dto';
 import { ExerciseDataService } from './exerciseData.service';
 import { User } from 'src/user/user.decorator';
@@ -36,6 +44,19 @@ export class ExerciseDataController {
         );
     }
 
+    @Delete(':userExerciseId/:exerciseDataId')
+    async deleteUserExerciseData(
+        @User('id') userId: string,
+        @Param('userExerciseId') userExerciseId: string,
+        @Param('exerciseDataId') exerciseDataId: string,
+    ) {
+        return await this.exerciseDataService.deleteWorkout(
+            userId,
+            userExerciseId,
+            exerciseDataId,
+        );
+    }
+
     @Delete('/set/:userExerciseId/:exerciseDataId/:exerciseDataSetId')
     async deleteUserExerciseDataSet(
         @User('id') userId: string,
@@ -48,6 +69,23 @@ export class ExerciseDataController {
             userExerciseId,
             exerciseDataId,
             exerciseDataSetId,
+        );
+    }
+
+    @Patch('/set/:userExerciseId/:exerciseDataId/:exerciseDataSetId')
+    async updateUserExerciseDataSet(
+        @User('id') userId: string,
+        @Param('userExerciseId') userExerciseId: string,
+        @Param('exerciseDataId') exerciseDataId: string,
+        @Param('exerciseDataSetId') exerciseDataSetId: string,
+        @Body() payLoad,
+    ) {
+        return this.exerciseDataService.updateSet(
+            userId,
+            userExerciseId,
+            exerciseDataId,
+            exerciseDataSetId,
+            payLoad,
         );
     }
 }

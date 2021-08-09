@@ -83,6 +83,44 @@ export class ExerciseDataService {
         };
     }
 
+    async deleteWorkout(
+        userId: string,
+        userExerciseId: string,
+        exerciseDataId: string,
+    ) {
+        const userExercise = await this.prisma.userExercise.findUnique({
+            where: { id: userExerciseId },
+            include: {
+                exerciseData: true,
+            },
+        });
+
+        if (!userExercise) {
+            throw new NotFoundException('No exercise found');
+        }
+
+        if (userExercise.userId !== userId) {
+            throw new ForbiddenException('Not allowed to delete this exercise');
+        }
+
+        const workout = await this.prisma.userExerciseData.findUnique({
+            where: { id: exerciseDataId },
+        });
+
+        if (!workout) {
+            throw new NotFoundException('No workout found found');
+        }
+
+        const deleteWorkout = await this.prisma.userExerciseData.delete({
+            where: { id: exerciseDataId },
+        });
+
+        return {
+            message: 'Datensatz erfolgreich gelöscht',
+            data: deleteWorkout,
+        };
+    }
+
     async deleteSet(
         userId: string,
         userExerciseId: string,
@@ -101,7 +139,7 @@ export class ExerciseDataService {
         }
 
         if (userExercise.userId !== userId) {
-            throw new ForbiddenException('Not allowed to edit this exercise');
+            throw new ForbiddenException('Not allowed to delete this exercise');
         }
 
         const findDataSet = userExercise.exerciseData.find(
@@ -126,6 +164,59 @@ export class ExerciseDataService {
 
         return {
             message: 'Datensatz erfolgreich gelöscht',
+            data: deleteDataSet,
+        };
+    }
+
+    async updateSet(
+        userId: string,
+        userExerciseId: string,
+        exerciseDataId,
+        userExerciseDataSetId,
+        payLoad,
+    ) {
+        const { weight, reps } = payLoad;
+        const userExercise = await this.prisma.userExercise.findUnique({
+            where: { id: userExerciseId },
+            include: {
+                exerciseData: true,
+            },
+        });
+
+        if (!userExercise) {
+            throw new NotFoundException('No exercise found');
+        }
+
+        if (userExercise.userId !== userId) {
+            throw new ForbiddenException('Not allowed to delete this exercise');
+        }
+
+        const findDataSet = userExercise.exerciseData.find(
+            (e) => e.id === exerciseDataId,
+        );
+
+        if (!findDataSet) {
+            throw new NotFoundException('No exercise data found');
+        }
+
+        const dataSet = await this.prisma.userExerciseDataSets.findUnique({
+            where: { id: userExerciseDataSetId },
+        });
+
+        if (!dataSet) {
+            throw new NotFoundException('No dataset found');
+        }
+
+        const deleteDataSet = await this.prisma.userExerciseDataSets.update({
+            where: { id: userExerciseDataSetId },
+            data: {
+                weight,
+                reps,
+            },
+        });
+
+        return {
+            message: 'Datensatz erfolgreich geändert',
             data: deleteDataSet,
         };
     }

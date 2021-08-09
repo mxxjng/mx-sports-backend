@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["selectRelationCount"]
+  previewFeatures = ["selectRelationCount", "referentialActions"]
 }
 
 datasource db {
@@ -48,7 +48,7 @@ model Exercise {
 
 model UserExercise {
   id                String           @id @default(cuid())
-  user              User             @relation(fields: [userId], references: [id])
+  user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId            String
   exercise          Exercise         @relation(fields: [exerciseId], references: [id])
   exerciseId        String
@@ -61,14 +61,14 @@ model OneRepMax {
   id                String           @id @default(cuid())
   date              DateTime
   weight            Int
-  userExercise      UserExercise    @relation(fields: [userExerciseId], references: [id])
+  userExercise      UserExercise    @relation(fields: [userExerciseId], references: [id], onDelete: Cascade)
   userExerciseId    String
 }
 
 model UserExerciseData {
   id                   String           @id @default(cuid())
   date                 DateTime
-  userExercise         UserExercise    @relation(fields: [userExerciseId], references: [id])
+  userExercise         UserExercise    @relation(fields: [userExerciseId], references: [id], onDelete: Cascade)
   userExerciseId       String
   userExerciseDataSets UserExerciseDataSets[]
 }
@@ -78,6 +78,6 @@ model UserExerciseDataSets {
   reps               Int
   weight             Int
   setNumber          Int
-  userExerciseData   UserExerciseData @relation(fields: [userExerciseDataId], references: [id])
+  userExerciseData   UserExerciseData @relation(fields: [userExerciseDataId], references: [id], onDelete: Cascade)
   userExerciseDataId String
 }
