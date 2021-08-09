@@ -15,17 +15,32 @@ export class ExerciseService {
         return await this.prisma.exerciseCategory.findMany();
     }
 
-    async findAll() {
-        return await this.prisma.exercise.findMany({
-            include: {
-                exerciseCategory: true,
-            },
-        });
+    async findAll(query) {
+        let args = {};
+        if (query?.category) {
+            args = {
+                include: {
+                    exerciseCategory: true,
+                },
+                where: {
+                    exerciseCategory: {
+                        name: query.category,
+                    },
+                },
+            };
+        } else {
+            args = {
+                include: {
+                    exerciseCategory: true,
+                },
+            };
+        }
+        return await this.prisma.exercise.findMany(args);
     }
 
     async findOne(id: string): Promise<Exercise | undefined> {
         const exercise = await this.prisma.exercise.findUnique({
-            where: { id: id },
+            where: { id },
             include: { exerciseCategory: true },
         });
 

@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Param, Body, Delete } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Post,
+    Param,
+    Body,
+    Delete,
+    Query,
+} from '@nestjs/common';
 import { CreateOneRepMaxDTO, CreateUserExerciseDto } from './dto';
 import { UserExerciseService } from './userExercise.service';
 import { User } from 'src/user/user.decorator';
@@ -8,8 +16,11 @@ export class UserExerciseController {
     constructor(private readonly userExerciseService: UserExerciseService) {}
 
     @Get()
-    async getExercisesFromUser(@User('id') userId: string) {
-        return await this.userExerciseService.getExercisesFromUsers(userId);
+    async getExercisesFromUser(@User('id') userId: string, @Query() query) {
+        return await this.userExerciseService.getExercisesFromUsers(
+            userId,
+            query,
+        );
     }
 
     @Delete(':userExerciseId')

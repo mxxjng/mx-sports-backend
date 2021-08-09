@@ -119,9 +119,25 @@ export class UserExerciseService {
         };
     }
 
-    async getExercisesFromUsers(userId: string) {
+    async getExercisesFromUsers(userId: string, query) {
+        let queryArgs = {};
+
+        if (query?.category) {
+            queryArgs = {
+                userId,
+                exercise: {
+                    exerciseCategory: {
+                        name: query?.category,
+                    },
+                },
+            };
+        } else {
+            queryArgs = {
+                userId,
+            };
+        }
         return await this.prisma.userExercise.findMany({
-            where: { userId },
+            where: queryArgs,
             select: {
                 id: true,
                 oneRepMax: true,

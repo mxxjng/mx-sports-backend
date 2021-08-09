@@ -6,6 +6,7 @@ import {
     NotFoundException,
     Body,
     Delete,
+    Query,
 } from '@nestjs/common';
 import { CreateExerciseDto } from './dto';
 import { ExerciseService } from 'src/exercise/exercise.service';
@@ -16,9 +17,8 @@ export class ExerciseController {
     constructor(private readonly exerciseService: ExerciseService) {}
 
     @Get()
-    getAllExercises(@User('id') userId: string) {
-        console.log(userId);
-        return this.exerciseService.findAll();
+    getAllExercises(@User('id') userId: string, @Query() query) {
+        return this.exerciseService.findAll(query);
     }
 
     @Get('/category')
