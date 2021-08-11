@@ -19,6 +19,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - run: cp /home/repositories/mx-sports/mx-sports-backend/.env /root/actions-runner/mx-sports/mx-sports-backend/mx-sports-backend/.env
     - run: npm i
     - run: npm run build
     - run: pm2 restart mx-sports
