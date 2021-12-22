@@ -21,7 +21,7 @@ model User {
   weight      Int
   role        Role   @default(USER)
   isVerified  Boolean  @default(false)
-  exercises   UserExercise[]
+  userWorkouts UserWorkout[]
 }
 
 enum Role {
@@ -43,41 +43,45 @@ model Exercise {
   unit              String
   exerciseCategory  ExerciseCategory @relation(fields: [exerciseCategoryId], references: [id])
   exerciseCategoryId String
-  userExercises     UserExercise[]
+  userWorkoutExercises     UserWorkoutExercise[]
 }
 
-model UserExercise {
+model TrainedUserWorkout {
+  id                String           @id @default(cuid())
+  createdAt         DateTime  @default(now())
+  hasStarted        Boolean @default(true)
+  isFinished        Boolean @default(false)
+  isBaseWorkout     Boolean
+  pausedAt          DateTime
+  userWorkoutExercises  UserWorkoutExercise[]
+  userWorkout          UserWorkout         @relation(fields: [userWorkoutId], references: [id])
+  userWorkoutId        String
+}
+
+model UserWorkout {
   id                String           @id @default(cuid())
   user              User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId            String
+  name              String
+  isPublic          Boolean          @default(false)
+  trainedUserWorkouts TrainedUserWorkout[]
+}
+
+model UserWorkoutExercise {
+  id                String           @id @default(cuid())
   exercise          Exercise         @relation(fields: [exerciseId], references: [id])
   exerciseId        String
-  oneRepMax         OneRepMax[]
-  exerciseData      UserExerciseData[]
-  isPublic          Boolean          @default(false)
+  trainedWorkout           TrainedUserWorkout      @relation(fields: [trainedWorkoutId], references: [id], onDelete: Cascade)
+  trainedWorkoutId         String
+  exerciseSets      ExerciseSet[]
 }
 
-model OneRepMax {
-  id                String           @id @default(cuid())
-  date              DateTime
-  weight            Int
-  userExercise      UserExercise    @relation(fields: [userExerciseId], references: [id], onDelete: Cascade)
-  userExerciseId    String
-}
-
-model UserExerciseData {
-  id                   String           @id @default(cuid())
-  date                 DateTime
-  userExercise         UserExercise    @relation(fields: [userExerciseId], references: [id], onDelete: Cascade)
-  userExerciseId       String
-  userExerciseDataSets UserExerciseDataSets[]
-}
-
-model UserExerciseDataSets {
+model ExerciseSet {
   id                 String           @id @default(cuid())
   reps               Int
   weight             Int
   setNumber          Int
-  userExerciseData   UserExerciseData @relation(fields: [userExerciseDataId], references: [id], onDelete: Cascade)
-  userExerciseDataId String
+  userWorkoutExercise   UserWorkoutExercise @relation(fields: [userWorkoutExerciseId], references: [id], onDelete: Cascade)
+  userWorkoutExerciseId String
+  isChecked         Boolean @default(false)
 }
